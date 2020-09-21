@@ -29,6 +29,7 @@
 </template>
 
 <script>
+  import { Toast } from 'mint-ui';
 	import ajax from '../../utils/ajax.js'
 	import { Base64 } from 'js-base64'
 	import { REVIEW_PAGE_SIZE } from '../../config/const.js'
@@ -71,9 +72,7 @@
 			},
 			goContent (noteId) {
 				if (noteId) {
-					Megalo.navigateTo({
-						url: `/pages/content-page/index?note_id=${noteId}`
-					})
+				  window.location.href = `/pages/content-page/index?note_id=${noteId}`
 				}
 			},
 			getReviewList (page, pageSize) {
