@@ -21,6 +21,7 @@ glob.sync('./src/pages/**/index.js').forEach(appPath => {
 
 module.exports = {
   pages,
+  publicPath: '/buwang_h5',
   outputDir: path.resolve(__dirname, './output'),
   css: {
     loaderOptions: {

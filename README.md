@@ -1,24 +1,8 @@
-# buwang_h5
 
-## Project setup
-```
-npm install
-```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+怎么发布呢？
 
-### Lints and fixes files
-```
-npm run lint
-```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+
+服务器上安装包太慢了，目前是 本地打包好 output 然后远程通过 git 来拉取
