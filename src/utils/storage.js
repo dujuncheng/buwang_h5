@@ -1,12 +1,14 @@
+
+
 let storageUtil = (key) => ({
   set (v = '') {
-    Megalo.setStorageSync(key, v)
+    window.localStorage.setItem(key, v)
   },
-  get () {
-    return Megalo.getStorageSync(key)
+  get (key) {
+    return window.localStorage.getItem(key)
   },
-  remove () {
-    Megalo.removeStorageSync(key)
+  remove (key) {
+    window.localStorage.removeItem(key)
   }
 })
 

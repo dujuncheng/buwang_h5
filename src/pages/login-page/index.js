@@ -1,4 +1,4 @@
-import App from './index.vue'
+import App from './App.vue'
 import Vue from 'vue'
 import Mint from 'mint-ui';
 import 'mint-ui/lib/style.css'
@@ -7,6 +7,12 @@ import 'mint-ui/lib/style.css'
 Vue.use(Mint);
 
 
-const app = new Vue(App)
+new Vue({
+	render: h => h(App)
+}).$mount('#app')
 
-app.$mount()
+
+if (typeof window.hideLoadingSpin() === 'function') {
+	window.hideLoadingSpin()
+}
+

@@ -1,15 +1,18 @@
-import App from './index.vue'
+import App from './App.vue'
 import Vue from 'vue'
+import Mint from 'mint-ui';
+import 'mint-ui/lib/style.css'
 
-const app = new Vue(App)
 
-app.$mount()
+Vue.use(Mint);
 
-export default {
-  config: {
-    navigationBarTitleText: '日拱一卒',
-    enablePullDownRefresh: true,
-    usingComponents: {
-    }
-  }
+
+new Vue({
+  render: h => h(App)
+}).$mount('#app')
+
+
+if (typeof window.hideLoadingSpin() === 'function') {
+  window.hideLoadingSpin()
 }
+

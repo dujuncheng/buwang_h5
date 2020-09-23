@@ -1,31 +1,30 @@
-const Storage                = require('./storage.js')
+const Storage = require("./storage.js");
+const axios = require('axios')
 
-const baseUrl = 'https://dujuncheng.com/notebook'
+const baseUrl = "https://dujuncheng.com/notebook";
 
-Megalo.request.interceptors.after.use(res => {
-  if (res.header && res.header['x_session']) {
-    Storage.cookie.set(res.header['x_session'])
-  }
-  if (res && res.data && !res.data.success && Number(res.data.err_code) === 2) {
+axios.interceptors.response.use(function (res) {
+  if (
+    res &&
+    res.data &&
+    !res.data.success &&
+    Number(res.data.err_code) === 2
+  ) {
     // 跳去 login 页面
-    Megalo.redirectTo({
-      url: '/pages/login-page/index'
-    })
+    window.location.href = "/login-page"
   }
-  return res
-}, err => {
-  return Promise.reject(err)
-})
-
+  return res;
+}, function (error) {
+  console.log(error)
+  return Promise.reject(error);
+});
 const ajax = (type, method, params) => {
-  return Megalo.request({
+  return axios({
     method: type,
     url: `${baseUrl}?method=${method}`,
     data: params,
-    header: {
-      'Cookie': `_x_session=${Storage.cookie.get()}`
-    }
-  })
-}
+    withCredentials: true,
+  });
+};
 
-module.exports = ajax
+module.exports = ajax;

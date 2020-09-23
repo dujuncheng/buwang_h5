@@ -1,11 +1,6 @@
 <template>
   <div>
     <div class="login-container">
-      <img
-        class="logo"
-        src="http://h0.hucdn.com/open201925/473bbf39e159be0a_623x527.png"
-        alt=""
-      />
       <p class="title">不忘笔记</p>
       <p class="desc">大脑用来思考，记忆交给这儿</p>
       <input
@@ -110,7 +105,7 @@ export default {
         email: this.email,
         password: this.password
       };
-      ajax("POST", "login", params).then(result => {
+      ajax("POST", "login", params).then(({ data: result }) => {
         // 错误1：用户还没有注册
         if (!result.success && Number(result.err_code) === 1) {
           Toast("您的账号还没有注册，请注册哦");
@@ -123,13 +118,13 @@ export default {
 
         // 错误2：其他报错
         if (!result.success) {
-          Toast(result.message);
+          Toast(result.message || '请求失败了');
           return false;
         }
 
         Toast(result.message || "登录成功咯");
 
-        window.location.href = "/review-list/index";
+        window.location.href = "/review-list";
       });
     },
     // 点击了【注册按钮】
