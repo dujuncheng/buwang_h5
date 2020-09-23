@@ -42,4 +42,10 @@ module.exports = {
       }
     }
   },
+  chainWebpack: config => config.resolve.symlinks(false),
+  devServer: {
+    open: true,
+    disableHostCheck: true,
+    port: 80
+  }
 }
