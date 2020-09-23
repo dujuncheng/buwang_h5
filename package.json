@@ -10,9 +10,10 @@
   "dependencies": {
     "axios": "^0.20.0",
     "core-js": "^3.6.5",
+    "mescroll.js": "^1.4.2",
     "mint-ui": "^2.2.13",
-    "vue": "^2.6.11",
-    "mescroll.js": "^1.4.2"
+    "query-string": "^6.13.2",
+    "vue": "^2.6.11"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.5.6",
