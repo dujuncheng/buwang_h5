@@ -118,5 +118,11 @@
         });
       } catch (error) {}
     </script>
+		<script>
+	    window.showLoadingSpin = function (){document.getElementById('pageLoadWrap').style.display = 'block';};
+	    window.hideLoadingSpin = function (){document.getElementById('pageLoadWrap').style.display = 'none';};
+	    window.showLoadingSpin();
+	    if (navigator.userAgent.search(/aweme/i) > -1) document.getElementById('pageLoadWrap').style.backgroundColor = '#161823'; // 如果在抖音app里面
+		</script>
 </body>
 </html>

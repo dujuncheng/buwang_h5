@@ -153,7 +153,7 @@ export default {
 
         Toast("注册成功咯~");
 
-        window.location.href = "/pages/review-list/index";
+        window.location.href = "/review-list";
       });
     },
     changeState(text) {
