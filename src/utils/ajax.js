@@ -1,7 +1,6 @@
-const Storage = require("./storage.js");
 const axios = require('axios')
 
-const baseUrl = "https://dujuncheng.com/notebook";
+const baseUrl = process.NODE_ENV === 'production' ? "https://dujuncheng.com/notebook" : "/notebook";
 
 axios.interceptors.response.use(function (res) {
   if (
