@@ -11,7 +11,7 @@ axios.interceptors.response.use(function (res) {
     Number(res.data.err_code) === 2
   ) {
     // 跳去 login 页面
-    window.location.href = "/login-page"
+    window.location.href = "/buwang_h5/login-page.html"
   }
   return res;
 }, function (error) {

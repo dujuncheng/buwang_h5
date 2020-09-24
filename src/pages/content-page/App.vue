@@ -146,7 +146,7 @@ export default {
 
       if (reviewOk) {
         setTimeout(() => {
-          window.location.href = '/review-list'
+          window.location.href = '/buwang_h5/index.html'
         }, 1000);
       }
     },

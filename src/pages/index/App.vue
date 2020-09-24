@@ -85,7 +85,7 @@ export default {
     },
     goContent(noteId) {
       if (noteId) {
-        window.location.href = `/content-page/index?note_id=${noteId}`;
+        window.location.href = `/buwang_h5/content-page.html?note_id=${noteId}`;
       }
     },
     getReviewList(page, pageSize) {

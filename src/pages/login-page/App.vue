@@ -124,7 +124,7 @@ export default {
 
         Toast(result.message || "登录成功咯");
 
-        window.location.href = "/review-list";
+        window.location.href = "/buwang_h5/index.html";
       });
     },
     // 点击了【注册按钮】
@@ -153,7 +153,7 @@ export default {
 
         Toast("注册成功咯~");
 
-        window.location.href = "/review-list";
+        window.location.href = "/buwang_h5/index.html";
       });
     },
     changeState(text) {
