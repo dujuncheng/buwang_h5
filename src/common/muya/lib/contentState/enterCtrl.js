@@ -2,7 +2,9 @@ import selection from '../selection'
 import { isOsx } from '../config'
 
 /* eslint-disable no-useless-escape */
-const FOOTNOTE_REG = /^\[\^([^\^\[\]\s]+?)(?<!\\)\]:$/
+// ]: 符号左边不能是 \ 这种情况
+//   /^\[\^([^\^\[\]\s]+?)(?<!\\)\]:$/
+const FOOTNOTE_REG = /^$/
 /* eslint-enable no-useless-escape */
 
 const checkAutoIndent = (text, offset) => {

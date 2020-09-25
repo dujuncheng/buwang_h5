@@ -12,7 +12,7 @@
 				window._fontSize = a.rem
 			}
 			var c, d = a.navigator.appVersion.match(/iphone/gi) ? a.devicePixelRatio : 1,
-				e = 1 / d,
+				e = 4 / d,
 				f = document.documentElement,
 				g = document.createElement("meta");
 			if (a.dpr = d, a.addEventListener("resize", function() {
@@ -85,11 +85,6 @@
   </style>
 </head>
 <body>
-    <div id="pageLoadWrap" class="im-spin">
-      <div class="im-spin-main">
-        <span class="im-spin-dot"></span>
-      </div>
-    </div>
     <div id="app"></div>
     <script>
       // 缩放
@@ -118,11 +113,5 @@
         });
       } catch (error) {}
     </script>
-		<script>
-	    window.showLoadingSpin = function (){document.getElementById('pageLoadWrap').style.display = 'block';};
-	    window.hideLoadingSpin = function (){document.getElementById('pageLoadWrap').style.display = 'none';};
-	    window.showLoadingSpin();
-	    if (navigator.userAgent.search(/aweme/i) > -1) document.getElementById('pageLoadWrap').style.backgroundColor = '#161823'; // 如果在抖音app里面
-		</script>
 </body>
 </html>

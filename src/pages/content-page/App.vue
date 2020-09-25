@@ -215,9 +215,9 @@ export default {
   width: 100vw;
   height: 100vh;
   .title {
-    padding-left: 22 / @base;
-    padding-top: 22 / @base;
-    font-size: 13 / @base;
+    padding-left: 22px;
+    padding-top: 22px;
+    font-size: 24px;
   }
   .click-btn {
     margin: 0 auto;

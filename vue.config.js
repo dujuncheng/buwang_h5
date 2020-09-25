@@ -35,6 +35,7 @@ module.exports = {
     }
   },
   configureWebpack: {
+    devtool: 'inline-source-map',
     resolve: {
       alias: {
         '!': path.join(path.resolve(__dirname), './src'),
@@ -47,6 +48,17 @@ module.exports = {
   devServer: {
     open: true,
     disableHostCheck: true,
-    port: 80
+    port: 80,
+    proxy: {
+      "/notebook": {
+        target: 'https://dujuncheng.com/',
+        changeOrigin: true,
+        logLevel: 'error',
+        onProxyReq: function(proxyReq) {
+       
+          proxyReq.setHeader("Cookie", "_x_session=MTYwMDgzMDUzMjAzODE3XzE2MDA4MzA1MzIwMzg3");
+        }
+      },
+    }
   }
 }

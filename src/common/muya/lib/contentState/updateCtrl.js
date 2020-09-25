@@ -2,17 +2,7 @@ import { tokenizer } from '../parser/'
 import { conflict } from '../utils'
 import { CLASS_OR_ID } from '../config'
 
-const INLINE_UPDATE_FRAGMENTS = [
-  '(?:^|\n) {0,3}([*+-] {1,4})', // Bullet list
-  '(?:^|\n)(\\[[x ]{1}\\] {1,4})', // Task list
-  '(?:^|\n) {0,3}(\\d{1,9}(?:\\.|\\)) {1,4})', // Order list
-  '(?:^|\n) {0,3}(#{1,6})(?=\\s{1,}|$)', // ATX headings
-  '^(?:[\\s\\S]+?)\\n {0,3}(\\={3,}|\\-{3,})(?= {1,}|$)', // Setext headings **match from beginning**
-  '(?:^|\n) {0,3}(>).+', // Block quote
-  '^( {4,})', // Indent code **match from beginning**
-  '^(\\[\\^[^\\^\\[\\]\\s]+?(?<!\\\\)\\]: )', // Footnote **match from beginning**
-  '(?:^|\n) {0,3}((?:\\* *\\* *\\*|- *- *-|_ *_ *_)[ \\*\\-\\_]*)$' // Thematic break
-]
+const INLINE_UPDATE_FRAGMENTS = []
 
 const INLINE_UPDATE_REG = new RegExp(INLINE_UPDATE_FRAGMENTS.join('|'), 'i')
 

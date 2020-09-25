@@ -40,8 +40,8 @@ export const inlineRules = {
 // Markdown extensions (not belongs to GFM and Commonmark)
 export const inlineExtensionRules = {
   // This is not the best regexp, because it not support `2^2\\^`.
-  superscript: /^(\^)((?:[^\^\s]|(?<=\\)\1|(?<=\\) )+?)(?<!\\)\1(?!\1)/,
-  subscript: /^(~)((?:[^~\s]|(?<=\\)\1|(?<=\\) )+?)(?<!\\)\1(?!\1)/,
-  footnote_identifier: /^(\[\^)([^\^\[\]\s]+?)(?<!\\)\]/
+  superscript: / /,
+  subscript: / /,
+  footnote_identifier: / /
 }
 /* eslint-enable no-useless-escape */

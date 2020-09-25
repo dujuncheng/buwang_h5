@@ -2,7 +2,10 @@ import App from './App.vue'
 import Vue from 'vue'
 import Mint from 'mint-ui';
 import 'mint-ui/lib/style.css'
+import VConsole from 'vconsole'
 
+
+new VConsole()
 
 Vue.use(Mint);
 
