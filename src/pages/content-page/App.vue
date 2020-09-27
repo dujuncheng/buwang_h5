@@ -4,7 +4,14 @@
 
     <div class="J_editor editor"></div>
 
-    <mt-button class="click-btn" type="primary" @click="handleClick">确认已经复习</mt-button>
+    <mt-button class="click-btn" type="primary" @click="handleClick">done</mt-button>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
   </div>
 </template>
 
@@ -214,6 +221,7 @@ export default {
   overflow-y: scroll;
   width: 100vw;
   height: 100vh;
+  padding-bottom: 200px;
   .title {
     padding-left: 22px;
     padding-top: 22px;
@@ -222,6 +230,7 @@ export default {
   .click-btn {
     margin: 0 auto;
     display: block;
+    margin-bottom: 100px;
   }
 }
 </style>
