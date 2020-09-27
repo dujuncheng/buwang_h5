@@ -217,7 +217,7 @@ export default {
   .title {
     padding-left: 22px;
     padding-top: 22px;
-    font-size: 24px;
+    font-size: 18px;
   }
   .click-btn {
     margin: 0 auto;
