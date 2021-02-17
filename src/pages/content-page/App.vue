@@ -4,14 +4,33 @@
 
     <div class="J_editor editor"></div>
 
-    <mt-button class="click-btn" type="primary" @click="handleClick">done</mt-button>
+    <mt-button class="click-btn" type="primary" @click="handleClick"
+      >review</mt-button
+    >
 
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
+    <div class="custom-picker-container">
+      <mt-button class="custom-picker-btn" @click="openPicker" size="small">{{
+          pickerValue ? friendlyTime(pickerValue.getTime()) : "请选择review时间"
+        }}</mt-button>
+      <mt-button class="custom-confirm-btn" type="primary" @click="confirmPicker" size="small"
+      >确定</mt-button
+      >
+    </div>
+
+    <mt-datetime-picker
+      ref="picker"
+      type="datetime"
+      :startDate="startDate"
+      v-model="pickerValue"
+    >
+    </mt-datetime-picker>
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
   </div>
 </template>
 
@@ -47,15 +66,58 @@ const encodeChangeArr = changeArr => {
 export default {
   data() {
     return {
+      startDate: new Date(),
       current: "",
       editor: "",
       noteId: "",
       noteObj: {
         content: ""
-      }
+      },
+      pickerValue: ""
     };
   },
   methods: {
+    async confirmPicker() {
+      if (!this.pickerValue) {
+        Toast("请先选择要复习的时间");
+        return
+      }
+      if (this.current && this.current !== this.noteObj.content) {
+        // 先调用接口保存修改
+        await this.saveChange();
+      }
+      // 再提交复习
+      let reviewOk = await this.sumitReview({
+        note_id: this.noteId,
+        nextReviewTime: Math.round(this.pickerValue.getTime() / 1000)
+      });
+
+      if (reviewOk) {
+        setTimeout(() => {
+          window.location.href = "/buwang_h5/index.html";
+        }, 1000);
+      }
+    },
+    friendlyTime(timeStamp) {
+      if (String(timeStamp).length === 13) {
+        timeStamp = Math.floor(Number(timeStamp) / 1000);
+      } else {
+        timeStamp = Number(timeStamp);
+      }
+      // 确定好具体时间
+      let year = String(new Date(timeStamp * 1000).getFullYear());
+      let hour = String(new Date(timeStamp * 1000).getHours());
+      let hourText = hour.length === 1 ? `0${hour}` : `${hour}`;
+      let min = String(new Date(timeStamp * 1000).getMinutes());
+      let minText = min.length === 1 ? `0${min}` : `${min}`;
+      let month = new Date(timeStamp * 1000).getMonth() + 1;
+      let day = String(new Date(timeStamp * 1000).getDate());
+      let str = `${year}年 ${month}月${day}日 ${hourText}:${minText}`;
+      return str;
+    },
+    openPicker() {
+      this.$refs.picker.open();
+    },
     init() {
       const ele = document.querySelector(".J_editor");
       let config = {
@@ -81,44 +143,6 @@ export default {
 
       this.editor = new Muya(ele, config);
 
-      // the default theme is light write in the store
-      // bus.$on('file-loaded', this.setMarkdownToEditor)
-      // bus.$on('undo', this.handleUndo)
-      // bus.$on('save', this.handleSave)
-      // bus.$on('redo', this.handleRedo)
-      // bus.$on('selectAll', this.handleSelectAll)
-      // bus.$on('paragraph', this.handleEditParagraph)
-      // bus.$on('format', this.handleInlineFormat)
-      // bus.$on('searchValue', this.handleSearch)
-      // bus.$on('replaceValue', this.handReplace)
-      // bus.$on('find-action', this.handleFindAction)
-      // bus.$on('insert-image', this.handleSelect)
-      // bus.$on('image-uploaded', this.handleUploadedImage)
-      // bus.$on('file-changed', this.handleMarkdownChange)
-      // bus.$on('editor-blur', this.blurEditor)
-      // bus.$on('editor-focus', this.focusEditor)
-      // bus.$on('image-auto-path', this.handleImagePath)
-      // bus.$on('copyAsMarkdown', this.handleCopyPaste)
-      // bus.$on('copyAsHtml', this.handleCopyPaste)
-      // bus.$on('pasteAsPlainText', this.handleCopyPaste)
-      // bus.$on('duplicate', this.handleParagraph)
-      // bus.$on('createParagraph', this.handleParagraph)
-      // bus.$on('deleteParagraph', this.handleParagraph)
-      // bus.$on('insertParagraph', this.handleInsertParagraph)
-      // bus.$on('scroll-to-header', this.scrollToHeader)
-
-      // this.editor.on('insert-image', type => {
-      //   if (type === 'absolute' || type === 'relative') {
-      //     this.$store.dispatch('ASK_FOR_INSERT_IMAGE', type)
-      //   } else if (type === 'upload') {
-      //     bus.$emit('upload-image')
-      //   }
-      // })
-      //
-      // this.editor.on('image-path-autocomplement', src => {
-      //   this.$store.dispatch('ASK_FOR_IMAGE_AUTO_PATH', src)
-      // })
-      //
       // 监听到内容的改变
       this.editor.on("change", changes => {
         this.current = changes.markdown;
@@ -149,11 +173,13 @@ export default {
         await this.saveChange();
       }
       // 再提交复习
-      let reviewOk = await this.sumitReview();
+      let reviewOk = await this.sumitReview({
+        note_id: this.noteId
+      });
 
       if (reviewOk) {
         setTimeout(() => {
-          window.location.href = '/buwang_h5/index.html'
+          window.location.href = "/buwang_h5/index.html";
         }, 1000);
       }
     },
@@ -175,15 +201,15 @@ export default {
         Toast("内容更新成功");
       }
     },
-    async sumitReview() {
-      let {data: result} = await ajax("POST", "review_this", { note_id: this.noteId });
+    async sumitReview(params) {
+      let { data: result } = await ajax("POST", "review_this", params);
 
       if (!result || !result.success) {
         Toast("网络错误，请稍后再试");
         return false;
       }
       Toast("恭喜棒棒哒你~又复习了一个笔记");
-      return true
+      return true;
     },
     async getContent(noteId) {
       let { data: result } = await ajax("POST", "get_content", {
@@ -230,7 +256,17 @@ export default {
   .click-btn {
     margin: 0 auto;
     display: block;
-    margin-bottom: 100px;
+    margin-bottom: 30px;
+  }
+  .custom-picker-container {
+    display: flex;
+    align-items: center;
+    .custom-picker-btn {
+      margin-left: 20px;
+    }
+    .custom-confirm-btn {
+      margin-left: 20px;
+    }
   }
 }
 </style>
@@ -240,5 +276,4 @@ export default {
   min-width: 100px !important;
   padding: 20px 10px 100px 10px !important;
 }
-
 </style>
